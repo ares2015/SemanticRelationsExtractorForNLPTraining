@@ -1,0 +1,33 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="semanticPreprocessor" class="com.semanticRelationsExtractor.preprocessing.SemanticPreprocessorImpl"/>
+
+    <bean id="subjectExtractor" class="com.semanticRelationsExtractor.extraction.subject.SubjectExtractorImpl"/>
+
+    <bean id="verbPredicateSequenceExtractor"
+          class="com.semanticRelationsExtractor.extraction.predicate.verb.sequence.VerbPredicateSequenceExtractorImpl"/>
+
+    <bean id="verbPredicateExtractor"
+          class="com.semanticRelationsExtractor.extraction.predicate.verb.VerbPredicateExtractorImpl">
+        <constructor-arg ref="verbPredicateSequenceExtractor"/>
+    </bean>
+
+    <bean id="nounPredicateExtractor"
+          class="com.semanticRelationsExtractor.extraction.predicate.noun.NounPredicateExtractorImpl"/>
+
+    <bean id="prepositionPredicateExtractor"
+          class="com.semanticRelationsExtractor.extraction.predicate.preposition.PrepositionPredicateExtractorImpl"/>
+
+
+    <bean id="semanticRelationsExtractor"
+          class="com.semanticRelationsExtractor.extraction.SemanticRelationsExtractorImpl">
+        <constructor-arg ref="subjectExtractor"/>
+        <constructor-arg ref="verbPredicateExtractor"/>
+        <constructor-arg ref="nounPredicateExtractor"/>
+        <constructor-arg ref="prepositionPredicateExtractor"/>
+    </bean>
+
+</beans>
