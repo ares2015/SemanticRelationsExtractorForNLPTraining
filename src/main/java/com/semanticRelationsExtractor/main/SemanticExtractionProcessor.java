@@ -1,7 +1,6 @@
 package com.semanticRelationsExtractor.main;
 
 import com.semanticRelationsExtractor.data.SemanticExtractionData;
-import com.semanticRelationsExtractor.data.TrainingDataRow;
 
 import java.util.List;
 
@@ -10,6 +9,6 @@ import java.util.List;
  */
 public interface SemanticExtractionProcessor {
 
-    List<SemanticExtractionData> process(List<TrainingDataRow> trainingDataRowList) throws InterruptedException;
+    SemanticExtractionData process(List<String> tokensList, List<String> tagsList) throws InterruptedException;
 
 }
