@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -27,11 +28,11 @@ public class SemanticExtractionProcessorImpl implements SemanticExtractionProces
     }
 
     @Override
-    public SemanticExtractionData process(List<String> tokensList, List<String> tagsList) throws InterruptedException {
+    public Optional<SemanticExtractionData> process(List<String> tokensList, List<String> tagsList) throws InterruptedException {
         SemanticPreprocessingData semanticPreprocessingData = semanticPreprocessor.preprocess(tokensList, tagsList);
         if (semanticPreprocessingData.canGoToExtraction()) {
-            return semanticRelationsExtractor.extract(semanticPreprocessingData);
+            return Optional.of(semanticRelationsExtractor.extract(semanticPreprocessingData));
         }
-        return new SemanticExtractionData();
+        return Optional.empty();
     }
 }
